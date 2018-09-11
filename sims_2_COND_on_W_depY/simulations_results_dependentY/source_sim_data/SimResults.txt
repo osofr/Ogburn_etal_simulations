@@ -1,0 +1,768 @@
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A.stoch0.35_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   2.253653e-05 0.0002690690         0.0001249377  0.0001914011 0.0008813643          NA 0.0003554906
+h.iptw 2.418206e-02 0.0003201977                   NA            NA 0.0008914462          NA 0.0005507504
+gcomp  6.544523e-04 0.0002343019                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.773       0.846    0.995        NA    0.974         0.04145424  0.05100039 0.1136067        NA
+h.iptw                 NA          NA    0.843        NA    0.756                 NA          NA 0.1105179        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+         iidCIlen        MAD       est
+tmle   0.07329774 0.01306706 0.1432715
+h.iptw 0.08719894 0.02619957 0.1191119
+gcomp          NA 0.01222763 0.1439485
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A.stoch0.35_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0009440959 0.0002703135         0.0001222666  0.0001880157 0.0003565998          NA 0.0001883815
+h.iptw 0.0222136062 0.0004496915                   NA            NA 0.0015479478          NA 0.0008646883
+gcomp  0.0006262910 0.0002310874                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.757       0.844    0.950        NA    0.879         0.04062048  0.05014617 0.07096813        NA
+h.iptw                 NA          NA    0.953        NA    0.893                 NA          NA 0.14462977        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen        MAD        est
+tmle   0.05222278 0.01328966 0.06160190
+h.iptw 0.10809537 0.02584530 0.04033239
+gcomp          NA 0.01234541 0.06191971
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A.stoch0.35_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.001284442 0.0001566586         9.140157e-05  0.0001369027 0.0006213443          NA 0.0001936291
+h.iptw 0.013683643 0.0001673113                   NA            NA 0.0009742411          NA 0.0002925763
+gcomp  0.001130511 0.0001283552                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.842       0.905    1.000        NA    0.975         0.03596142  0.04376433 0.09667969        NA
+h.iptw                 NA          NA    0.991        NA    0.860                 NA          NA 0.12034176        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.05396006 0.009770756 0.1460934
+h.iptw 0.06501751 0.015897727 0.1311254
+gcomp          NA 0.008977450 0.1459395
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A.stoch0.35_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.003378568 0.0001713639         9.640268e-05  0.0001479688 0.0002302961          NA 0.0001245266
+h.iptw 0.011482734 0.0002078089                   NA            NA 0.0010324708          NA 0.0004147917
+gcomp  0.001660401 0.0001351108                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.828       0.902    0.963        NA    0.884         0.03689534  0.04550005 0.05752138        NA
+h.iptw                 NA          NA    0.992        NA    0.945                 NA          NA 0.12310170        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.04261374 0.010498782 0.06814057
+h.iptw 0.07794398 0.015275904 0.05327927
+gcomp          NA 0.009162422 0.06642240
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A.stoch0.35_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.002010904 1.349292e-05          9.32317e-06  1.776079e-05 7.545694e-05          NA 1.939216e-05
+h.iptw 0.001292148 1.485783e-05                   NA            NA 2.365797e-04          NA 3.098406e-05
+gcomp  0.002677434 1.265705e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.844       0.953        1        NA    0.964         0.01189839   0.0164067 0.03400683        NA
+h.iptw                 NA          NA        1        NA    0.989                 NA          NA 0.06015454        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.01723584 0.003346678 0.1459411
+h.iptw 0.02169480 0.003267529 0.1426381
+gcomp          NA 0.003557822 0.1466076
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A.stoch0.35_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0034062473 1.421664e-05         9.409294e-06  1.404046e-05 2.967555e-05          NA 1.223894e-05
+h.iptw 0.0008775493 1.613250e-05                   NA            NA 2.082121e-04          NA 4.084758e-05
+gcomp  0.0030761527 1.350144e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.751       0.843    0.969        NA    0.822         0.01195148  0.01454364 0.02127254        NA
+h.iptw                 NA          NA    1.000        NA    0.998                 NA          NA 0.05634095        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.01366230 0.004107625 0.07123345
+h.iptw 0.02496025 0.003284427 0.06694965
+gcomp          NA 0.003835450 0.07090335
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A.dynamic_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   1.378641e-04 9.564856e-05          4.46697e-05  6.611561e-05 0.0004790103          NA 0.0002504858
+h.iptw 4.806611e-03 2.328251e-04                   NA            NA 0.0006938539          NA 0.0004779157
+gcomp  5.547133e-05 6.457819e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.773       0.844    1.000        NA    0.997         0.02419238  0.02951446 0.08359736        NA
+h.iptw                 NA          NA    0.979        NA    0.966                 NA          NA 0.09540458        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.06177633 0.007479467 0.10059814
+h.iptw 0.08064292 0.012440188 0.09592939
+gcomp          NA 0.006468993 0.10068053
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A.dynamic_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0004731622 7.815188e-05         2.976409e-05  4.479403e-05 0.0001091110          NA 5.017205e-05
+h.iptw 0.0015902918 2.314731e-04                   NA            NA 0.0004993355          NA 3.089797e-04
+gcomp  0.0002736884 5.545011e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                 0.66       0.751    0.962        NA    0.844         0.01879094  0.02326488 0.03784779        NA
+h.iptw                 NA          NA    0.976        NA    0.944                 NA          NA 0.07569356        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.02624061 0.006944665 0.01938516
+h.iptw 0.06065027 0.011656434 0.01732171
+gcomp          NA 0.005963829 0.01863831
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A.dynamic_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0010212001 4.570540e-05         3.103334e-05   4.61183e-05 0.0003741297          NA 0.0001220600
+h.iptw 0.0033157191 8.750481e-05                   NA            NA 0.0003923819          NA 0.0001995664
+gcomp  0.0007003051 2.754265e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen depCIlen bootCIlen
+tmle                0.855       0.921        1        NA    1.000         0.02073695  0.02518033 0.074961        NA
+h.iptw                 NA          NA        1        NA    0.979                 NA          NA 0.076152        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA       NA        NA
+         iidCIlen         MAD        est
+tmle   0.04311847 0.005505583 0.09719980
+h.iptw 0.05383728 0.007939979 0.09490528
+gcomp          NA 0.004196910 0.09752069
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A.dynamic_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0003663267 4.974952e-05         2.794881e-05  4.650539e-05 7.297055e-05          NA 3.688666e-05
+h.iptw 0.0019572292 7.970689e-05                   NA            NA 1.681927e-04          NA 1.025349e-04
+gcomp  0.0008592376 2.430592e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.778       0.876    0.972        NA    0.879         0.01875009  0.02410517 0.03137720        NA
+h.iptw                 NA          NA    0.953        NA    0.918                 NA          NA 0.04690995        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.02246918 0.005571997 0.01931333
+h.iptw 0.03667144 0.007260646 0.01698977
+gcomp          NA 0.003964095 0.01808776
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A.dynamic_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0007357143 5.017510e-06         3.270723e-06  5.523225e-06 4.093102e-05          NA 1.218985e-05
+h.iptw 0.0021071033 7.491709e-06                   NA            NA 5.729720e-05          NA 1.550092e-05
+gcomp  0.0003608432 3.068168e-06                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.836        0.93        1        NA    0.995        0.006794435 0.008899683 0.02499494        NA
+h.iptw                 NA          NA        1        NA    0.975                 NA          NA 0.02940387        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.01360252 0.001866150 0.09506589
+h.iptw 0.01525934 0.002870580 0.09369450
+gcomp          NA 0.001419251 0.09544076
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A.dynamic_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0004139818 5.074503e-06         2.623516e-06    3.8413e-06 8.137776e-06          NA 3.519234e-06
+h.iptw 0.0019919209 6.659941e-06                   NA            NA 2.265894e-05          NA 8.544796e-06
+gcomp  0.0002137846 2.865196e-06                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                 0.83       0.895    0.984        NA    0.881        0.005974458 0.007249267 0.01091415        NA
+h.iptw                 NA          NA    0.962        NA    0.881                 NA          NA 0.01794780        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+          iidCIlen         MAD        est
+tmle   0.007076567 0.001786153 0.02031328
+h.iptw 0.011111448 0.002716132 0.01790738
+gcomp           NA 0.001359772 0.01968552
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.nFPA.6a_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.002026919 0.0002497928         0.0001575794  0.0002267925 0.0008208791          NA 0.0004632108
+h.iptw 0.007600272 0.0002913489                   NA            NA 0.0013581579          NA 0.0006067725
+gcomp  0.003880975 0.0001793852                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                 0.82       0.884    0.998        NA    0.995         0.04687005  0.05617082 0.1097193        NA
+h.iptw                 NA          NA    1.000        NA    0.993                 NA          NA 0.1421438        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+         iidCIlen        MAD       est
+tmle   0.08382849 0.01265379 0.1623071
+h.iptw 0.09561107 0.01528667 0.1567337
+gcomp          NA 0.01118792 0.1604530
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.nFPA.6a_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.003194919 8.027201e-05         7.349076e-05  0.0001017074 0.0002458228          NA 0.0001770544
+h.iptw 0.008768272 1.077656e-04                   NA            NA 0.0004684012          NA 0.0002490977
+gcomp  0.005048974 2.360634e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.773       0.837        1        NA    0.998         0.02997337  0.03533208 0.05992235        NA
+h.iptw                 NA          NA        1        NA    0.975                 NA          NA 0.08274743        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.05109201 0.007840241 0.05041508
+h.iptw 0.05983097 0.012030122 0.04484173
+gcomp          NA 0.005917631 0.04856103
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.nFPA.6a_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.000106496 0.0001275179         8.947405e-05  0.0001257179 0.0005706949          NA 0.0002315164
+h.iptw 0.020712217 0.0001258369                   NA            NA 0.0016255600          NA 0.0004371951
+gcomp  0.002884307 0.0001051804                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.888       0.929        1        NA    0.992         0.03659568  0.04314096 0.09255405        NA
+h.iptw                 NA          NA        1        NA    0.975                 NA          NA 0.15758597        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.05951082 0.008999903 0.1708605
+h.iptw 0.08186509 0.020901006 0.1914662
+gcomp          NA 0.008488432 0.1736383
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.nFPA.6a_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.000217496 4.266921e-05         3.891815e-05  5.360362e-05 0.0001173722          NA 9.135967e-05
+h.iptw 0.020823217 4.350900e-05                   NA            NA 0.0005598443          NA 1.979444e-04
+gcomp  0.002995307 1.717651e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.909       0.957    0.999        NA    0.999         0.02363111  0.02768664 0.04206580        NA
+h.iptw                 NA          NA    1.000        NA    0.893                 NA          NA 0.09238009        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.03721396 0.005218230 0.05777650
+h.iptw 0.05498369 0.020823217 0.07838222
+gcomp          NA 0.004054233 0.06055431
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.nFPA.6a_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.001090770 1.426495e-05         9.303043e-06  1.652271e-05 6.396498e-05          NA 2.354101e-05
+h.iptw 0.004066026 1.619101e-05                   NA            NA 1.563915e-04          NA 3.610254e-05
+gcomp  0.001710523 1.196941e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.892       0.961    0.999        NA    0.982         0.01194584  0.01589259 0.03130462        NA
+h.iptw                 NA          NA    1.000        NA    0.975                 NA          NA 0.04899440        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.01901615 0.003097087 0.1730932
+h.iptw 0.02354967 0.004670073 0.1760684
+gcomp          NA 0.003045980 0.1737129
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.nFPA.6a_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.001050670 3.925522e-06          3.68253e-06  4.452306e-06 1.060710e-05          NA 9.162321e-06
+h.iptw 0.004025926 5.021792e-06                   NA            NA 4.697563e-05          NA 1.471084e-05
+gcomp  0.001670422 1.745898e-06                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.927       0.953    0.996        NA    0.993        0.007506071 0.008238602 0.01274665        NA
+h.iptw                 NA          NA    1.000        NA    0.946                 NA          NA 0.02684449        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.01186082 0.001767901 0.06170157
+h.iptw 0.01502939 0.004076777 0.06467683
+gcomp          NA 0.001783241 0.06232132
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A_nFPA.8a_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0001920748 0.0002637882         0.0001773383  0.0002360927 0.000738787          NA 0.0004690722
+h.iptw 0.0106869329 0.0009683347                   NA            NA 0.002840918          NA 0.0017574650
+gcomp  0.0007189539 0.0001226780                   NA            NA          NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.748       0.816    1.000        NA    0.998         0.04219879  0.04978151 0.1019743        NA
+h.iptw                 NA          NA    0.935        NA    0.903                 NA          NA 0.1886408        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+         iidCIlen         MAD       est
+tmle   0.08195792 0.012733112 0.1437519
+h.iptw 0.14827378 0.026221188 0.1332571
+gcomp          NA 0.008895021 0.1432250
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A_nFPA.8a_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.001473337 2.092439e-04         0.0001195196  0.0001582384 0.0003908861          NA 0.0002430390
+h.iptw 0.009196157 7.573957e-04                   NA            NA 0.0014709694          NA 0.0009745847
+gcomp  0.002550822 9.473147e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.671       0.764    0.986        NA    0.962         0.03370003  0.03982165 0.07226258        NA
+h.iptw                 NA          NA    0.871        NA    0.817                 NA          NA 0.13036233        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.05725881 0.011429794 0.06186066
+h.iptw 0.10606323 0.023093362 0.05413784
+gcomp          NA 0.008100662 0.06078318
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A_nFPA.8a_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0028399271 1.437093e-04         0.0001253714  0.0001647302 0.0004909842          NA 0.0002607915
+h.iptw 0.0221978754 4.234126e-04                   NA            NA 0.0021225907          NA 0.0010968267
+gcomp  0.0008784757 6.196955e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.824       0.882    0.999        NA    0.996           0.038528  0.04484696 0.08398573        NA
+h.iptw                 NA          NA    1.000        NA    0.999                 NA          NA 0.17446609        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.06110562 0.009684994 0.1427881
+h.iptw 0.12430829 0.024321188 0.1678259
+gcomp          NA 0.006316502 0.1465065
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A_nFPA.8a_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0004407915 1.236291e-04         8.979322e-05   0.000123539 0.0002172915          NA 0.0001514505
+h.iptw 0.0250523143 3.444702e-04                   NA            NA 0.0009815684          NA 0.0005865991
+gcomp  0.0024190853 4.237685e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.839         0.9    0.990        NA     0.97         0.03209141  0.03839851 0.05454414        NA
+h.iptw                 NA          NA    0.989        NA     0.96                 NA          NA 0.11621175        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.04553525 0.008524271 0.06516679
+h.iptw 0.08954335 0.025893807 0.08977831
+gcomp          NA 0.005487393 0.06714509
+
+
+#results for scenario:  EY_gstar1_Net_prefattach_2pars.A_nFPA.8a_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0003969845 1.866484e-05         1.718838e-05  2.140076e-05 5.485062e-05          NA 3.080803e-05
+h.iptw 0.0096550534 4.122909e-05                   NA            NA 1.896672e-04          NA 9.745754e-05
+gcomp  0.0014010548 6.374767e-06                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.913        0.94        1        NA    0.988         0.01469535  0.01663665 0.02831308        NA
+h.iptw                 NA          NA        1        NA    0.969                 NA          NA 0.05355461        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.02090081 0.003295086 0.1448149
+h.iptw 0.03816136 0.009917186 0.1548670
+gcomp          NA 0.002307676 0.1466130
+
+
+#results for scenario:  ATE_Net_prefattach_2pars.A_nFPA.8a_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0007094095 1.670606e-05         1.321905e-05  1.586653e-05 2.679569e-05          NA 1.959962e-05
+h.iptw 0.0098097328 3.230718e-05                   NA            NA 8.962303e-05          NA 5.487706e-05
+gcomp  0.0014402572 4.576595e-06                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.898       0.938    0.991        NA    0.981         0.01232614   0.0136802 0.01900570        NA
+h.iptw                 NA          NA    0.982        NA    0.858                 NA          NA 0.03636385        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.01607310 0.003048517 0.07016401
+h.iptw 0.02818304 0.009912625 0.07926433
+gcomp          NA 0.002058013 0.07089486
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A.stoch0.35_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.002090175 0.002034394         0.0007097052   0.001370674 0.005769274          NA 0.001096540
+h.iptw 0.043155515 0.002619230                   NA            NA 0.011962198          NA 0.003094045
+gcomp  0.004107807 0.001812728                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.683       0.843    0.998        NA    0.836         0.09581863   0.1359639 0.2927075        NA
+h.iptw                 NA          NA    0.971        NA    0.788                 NA          NA 0.4106561        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1243964 0.03619527 0.4698622
+h.iptw 0.2026987 0.05494968 0.4246165
+gcomp         NA 0.03434318 0.4718798
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A.stoch0.35_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.001177015 0.002996519          0.001051327   0.001672307 0.003980069          NA 0.001324988
+h.iptw 0.026472941 0.003978882                   NA            NA 0.016581622          NA 0.004541406
+gcomp  0.002935831 0.002551668                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.662       0.784    0.956        NA    0.758          0.1149083   0.1471596 0.2391545        NA
+h.iptw                 NA          NA    0.991        NA    0.910                 NA          NA 0.4868631        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1334560 0.04362021 0.3091690
+h.iptw 0.2504432 0.05469843 0.2838731
+gcomp         NA 0.04068768 0.3074102
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A.stoch0.35_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0024355728 0.0009439971          0.000353622  0.0008398467 0.003564718          NA 0.0005345979
+h.iptw 0.0290135601 0.0012034073                   NA            NA 0.007483423          NA 0.0014116025
+gcomp  0.0005520306 0.0008204043                   NA            NA          NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.742       0.911    1.000        NA    0.842         0.07038126   0.1097086 0.2323566        NA
+h.iptw                 NA          NA    0.996        NA    0.815                 NA          NA 0.3317177        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+         iidCIlen        MAD       est
+tmle   0.08858178 0.02433815 0.4352834
+h.iptw 0.14015173 0.03718318 0.4087054
+gcomp          NA 0.02287142 0.4382710
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A.stoch0.35_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est   iidVar.Est
+tmle   0.002097993 0.001297879         0.0005380734  0.0009342003 0.002187251          NA 0.0006600453
+h.iptw 0.015541256 0.001812613                   NA            NA 0.010071755          NA 0.0021420767
+gcomp  0.003127454 0.001122312                   NA            NA          NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.734        0.87    0.981        NA    0.801         0.08436746   0.1126283 0.1795908        NA
+h.iptw                 NA          NA    1.000        NA    0.938                 NA          NA 0.3852659        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+         iidCIlen        MAD       est
+tmle   0.09553096 0.02878094 0.2874520
+h.iptw 0.17463105 0.03631548 0.2740087
+gcomp          NA 0.02716836 0.2864225
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A.stoch0.35_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0008356692 9.907786e-05         3.172599e-05  9.784403e-05 0.000353431          NA 5.001887e-05
+h.iptw 0.0034645051 1.053539e-04                   NA            NA 0.001080302          NA 1.423808e-04
+gcomp  0.0028015642 9.301060e-05                   NA            NA          NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.742       0.942    0.999        NA    0.844         0.02192869  0.03860345 0.07363328        NA
+h.iptw                 NA          NA    1.000        NA    0.961                 NA          NA 0.12844196        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.02764171 0.007963699 0.4560016
+h.iptw 0.04639908 0.008733255 0.4517014
+gcomp          NA 0.007951911 0.4579675
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A.stoch0.35_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.001356486 0.0001368812         4.491769e-05  9.834791e-05 0.0002265325          NA 5.769898e-05
+h.iptw 0.002915146 0.0001521355                   NA            NA 0.0015601328          NA 2.492253e-04
+gcomp  0.000520133 0.0001250922                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.731       0.902    0.986        NA    0.795         0.02606592  0.03863833 0.05889989        NA
+h.iptw                 NA          NA    1.000        NA    0.986                 NA          NA 0.15451421        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.02963259 0.009422345 0.3039872
+h.iptw 0.06150778 0.010207098 0.2997156
+gcomp          NA 0.009052417 0.3031508
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A.dynamic_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.003337869 0.004105783          0.001799281    0.00288282 0.006727379          NA 0.002166420
+h.iptw 0.125925284 0.006987388                   NA            NA 0.025339161          NA 0.008975007
+gcomp  0.006526677 0.002678319                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.694       0.811    0.973        NA    0.783          0.1420752   0.1841742 0.3104996        NA
+h.iptw                 NA          NA    0.862        NA    0.603                 NA          NA 0.5902083        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1637137 0.05011264 0.5797759
+h.iptw 0.3397996 0.13150252 0.4505127
+gcomp         NA 0.04132058 0.5829647
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A.dynamic_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.003574816 0.004848896           0.00222134   0.003357977 0.005348127          NA 0.002540192
+h.iptw 0.104652982 0.008594561                   NA            NA 0.032187532          NA 0.010664275
+gcomp  0.002553804 0.003604827                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.719       0.806    0.930        NA    0.770          0.1593087   0.1997819 0.2700691        NA
+h.iptw                 NA          NA    0.916        NA    0.747                 NA          NA 0.6722611        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1766002 0.05457266 0.4188648
+h.iptw 0.3771530 0.11655761 0.3106370
+gcomp         NA 0.04710680 0.4178438
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A.dynamic_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.0009877506 0.002757834          0.001241188   0.002141091 0.004496044          NA 0.001415027
+h.iptw 0.1001695289 0.004884859                   NA            NA 0.020734375          NA 0.006205433
+gcomp  0.0083892908 0.001531865                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.755       0.865    0.984        NA    0.797          0.1238398   0.1645836 0.2565539        NA
+h.iptw                 NA          NA    0.909        NA    0.621                 NA          NA 0.5415237        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1356804 0.04107434 0.5496102
+h.iptw 0.2874391 0.10594302 0.4504285
+gcomp         NA 0.03126914 0.5589873
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A.dynamic_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.001531182 0.003241967          0.001412314   0.002261501 0.003341435          NA 0.001558389
+h.iptw 0.086249329 0.005559675                   NA            NA 0.024988021          NA 0.006980412
+gcomp  0.006529373 0.002123368                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.763       0.848    0.936        NA    0.795          0.1340531   0.1704322 0.2171763        NA
+h.iptw                 NA          NA    0.956        NA    0.718                 NA          NA 0.5989984        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1433064 0.04459177 0.4021222
+h.iptw 0.3089417 0.09669722 0.3143417
+gcomp         NA 0.03683685 0.4071204
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A.dynamic_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.001526548 0.0002612047         0.0001351587  0.0002541712 0.0005015875          NA 0.0001524745
+h.iptw 0.027752674 0.0004682257                   NA            NA 0.0044005717          NA 0.0009861351
+gcomp  0.006486044 0.0001477525                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.814       0.932    0.987        NA    0.851         0.04440558  0.06089897 0.08713528        NA
+h.iptw                 NA          NA    0.999        NA    0.896                 NA          NA 0.25817691        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen        MAD       est
+tmle   0.04742241 0.01281538 0.5732069
+h.iptw 0.12170337 0.02970218 0.5439277
+gcomp          NA 0.01095534 0.5781664
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A.dynamic_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.002472723 0.0002930551         0.0001503889  0.0002627595 0.0003853787          NA 0.0001654319
+h.iptw 0.026661985 0.0005033348                   NA            NA 0.0051541585          NA 0.0011020952
+gcomp  0.004648673 0.0001904403                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.816       0.917    0.962        NA    0.848         0.04703607  0.06198448 0.07603007        NA
+h.iptw                 NA          NA    0.999        NA    0.920                 NA          NA 0.27984412        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen        MAD       est
+tmle   0.04951876 0.01364713 0.4208801
+h.iptw 0.12892720 0.02911792 0.3917454
+gcomp          NA 0.01160651 0.4230561
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.nFPA.6b_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0015123609 0.001147716           0.00024905  0.0008622186 0.004423340          NA 0.0006099162
+h.iptw 0.0010862887 0.001185590                   NA            NA 0.003313599          NA 0.0005864685
+gcomp  0.0003359826 0.001139616                   NA            NA          NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.638       0.899    0.999        NA    0.855         0.06177254   0.1137696 0.2576552        NA
+h.iptw                 NA          NA    0.993        NA    0.830                 NA          NA 0.2241040        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+         iidCIlen        MAD       est
+tmle   0.09674151 0.02712110 0.3651156
+h.iptw 0.09487907 0.02761531 0.3655417
+gcomp          NA 0.02693846 0.3669640
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.nFPA.6b_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0027063610 2.662322e-05         1.803732e-05  3.253367e-05 7.684314e-05          NA 4.245080e-05
+h.iptw 0.0022802887 3.646745e-05                   NA            NA 1.289968e-04          NA 5.540973e-05
+gcomp  0.0008580165 1.865163e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.841       0.918    0.989        NA    0.957         0.01640153  0.02156476 0.03376582        NA
+h.iptw                 NA          NA    0.981        NA    0.952                 NA          NA 0.04355098        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.02545139 0.004674663 0.03319964
+h.iptw 0.02900264 0.005184438 0.03362571
+gcomp          NA 0.003515985 0.03504798
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.nFPA.6b_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0013881731 0.0004627322         0.0001224986  0.0004615011 0.002739383          NA 0.0002914795
+h.iptw 0.0057300339 0.0004691308                   NA            NA 0.003055579          NA 0.0002967812
+gcomp  0.0003050398 0.0004516220                   NA            NA          NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.682       0.941    0.999        NA    0.883         0.04335708  0.08360365 0.2041369        NA
+h.iptw                 NA          NA    1.000        NA    0.878                 NA          NA 0.2161393        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+         iidCIlen        MAD       est
+tmle   0.06690016 0.01722042 0.3462952
+h.iptw 0.06751733 0.01800432 0.3506370
+gcomp          NA 0.01699209 0.3452120
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.nFPA.6b_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0014071731 1.337982e-05         6.673679e-06  1.228104e-05 3.432593e-05          NA 2.043289e-05
+h.iptw 0.0057490339 1.417678e-05                   NA            NA 1.787629e-04          NA 2.511067e-05
+gcomp  0.0003240405 9.810869e-06                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.802       0.913    0.995        NA    0.979         0.01009807  0.01354563 0.02273710        NA
+h.iptw                 NA          NA    1.000        NA    0.875                 NA          NA 0.05227432        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD        est
+tmle   0.01770147 0.003120918 0.03827617
+h.iptw 0.01962644 0.005969459 0.04261803
+gcomp          NA 0.002512154 0.03719304
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.nFPA.6b_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   4.503026e-05 5.663986e-05         1.227295e-05  5.086549e-05 0.0002572751          NA 2.953535e-05
+h.iptw 3.358443e-03 5.821020e-05                   NA            NA 0.0002934733          NA 3.026844e-05
+gcomp  5.613288e-05 5.659524e-05                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.608       0.934        1        NA    0.847         0.01373172  0.02793867 0.06284319        NA
+h.iptw                 NA          NA        1        NA    0.812                 NA          NA 0.06713181        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen         MAD       est
+tmle   0.02130271 0.006081842 0.3548603
+h.iptw 0.02156567 0.006647098 0.3582637
+gcomp          NA 0.006079925 0.3548492
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.nFPA.6b_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0000911303 1.182905e-06         6.804341e-07  1.201918e-06 3.300666e-06          NA 1.986146e-06
+h.iptw 0.0033123432 1.684204e-06                   NA            NA 2.497474e-05          NA 3.140273e-06
+gcomp  0.0001022329 1.033909e-06                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen    depCIlen bootCIlen
+tmle                0.868       0.942    0.999        NA    0.994        0.003231416 0.004287895 0.007110332        NA
+h.iptw                 NA          NA    1.000        NA    0.556                 NA          NA 0.019581155        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA          NA        NA
+          iidCIlen          MAD        est
+tmle   0.005523672 0.0008788582 0.03643657
+h.iptw 0.006945044 0.0033130296 0.03984004
+gcomp           NA 0.0008142570 0.03642547
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A_nFPA.8b_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.006327749 0.003778912          0.001499323   0.002434305 0.006112587          NA 0.001844105
+h.iptw 0.147361757 0.007517994                   NA            NA 0.028435454          NA 0.009420272
+gcomp  0.009147228 0.002450365                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.678         0.8    0.973        NA    0.770          0.1329213   0.1724516 0.2980952        NA
+h.iptw                 NA          NA    0.826        NA    0.536                 NA          NA 0.6236892        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1541838 0.04885481 0.6318797
+h.iptw 0.3454552 0.15186088 0.4781902
+gcomp         NA 0.03986053 0.6346992
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A_nFPA.8b_N500_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.005447811 0.004702141           0.00180692   0.002767572 0.004779081          NA 0.002140791
+h.iptw 0.128018154 0.009429120                   NA            NA 0.035476853          NA 0.011067109
+gcomp  0.004250882 0.003417487                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.677        0.77    0.917        NA    0.739          0.1494199   0.1866366 0.2604967        NA
+h.iptw                 NA          NA    0.909        NA    0.667                 NA          NA 0.7050538        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1679900 0.05437888 0.4705038
+h.iptw 0.3819596 0.13762077 0.3370378
+gcomp         NA 0.04672921 0.4693069
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A_nFPA.8b_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.003045506 0.002382284          0.001064153    0.00179667 0.003960622          NA 0.001228779
+h.iptw 0.122892982 0.004812863                   NA            NA 0.023709599          NA 0.006872912
+gcomp  0.005177885 0.001433225                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                 0.73       0.837    0.984        NA    0.779          0.1148653   0.1525648 0.2414734        NA
+h.iptw                 NA          NA    0.905        NA    0.587                 NA          NA 0.5816362        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1267552 0.03861603 0.6088965
+h.iptw 0.3026089 0.12523017 0.4890490
+gcomp         NA 0.03039080 0.6171199
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A_nFPA.8b_N1000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs     TrueVar condW.indepQ.Var.Est condW.Var.Est  depVar.Est bootVar.Est  iidVar.Est
+tmle   0.0029069524 0.002816256          0.001223925   0.001908661 0.002966404          NA 0.001379260
+h.iptw 0.1116758966 0.005384183                   NA            NA 0.027893745          NA 0.007743115
+gcomp  0.0005939543 0.001941248                   NA            NA          NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen  depCIlen bootCIlen
+tmle                0.734       0.815    0.927        NA    0.767          0.1251756   0.1581798 0.2059336        NA
+h.iptw                 NA          NA    0.947        NA    0.658                 NA          NA 0.6347900        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA        NA        NA
+        iidCIlen        MAD       est
+tmle   0.1355276 0.04255443 0.4621000
+h.iptw 0.3254972 0.11563766 0.3533311
+gcomp         NA 0.03535624 0.4656010
+
+
+#results for scenario:  EY_gstar1_Net_smallworld_2pars.A_nFPA.8b_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+           bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est   iidVar.Est
+tmle   0.0005511543 0.0002359445         0.0001261655    0.00023108 0.0004551376          NA 0.0001423345
+h.iptw 0.0513237652 0.0004677189                   NA            NA 0.0048384802          NA 0.0009998502
+gcomp  0.0052460653 0.0001360470                   NA            NA           NA          NA           NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.819       0.935    0.994        NA    0.852         0.04265287  0.05803184 0.08299333        NA
+h.iptw                 NA          NA    0.996        NA    0.642                 NA          NA 0.27066770        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen        MAD       est
+tmle   0.04559887 0.01233506 0.6280010
+h.iptw 0.12265788 0.05137078 0.5761260
+gcomp          NA 0.01029189 0.6326959
+
+
+#results for scenario:  ATE_Net_smallworld_2pars.A_nFPA.8b_N10000_Kmax_none 
+$Qh.corr_bin.equal.mass_nobsBinf0.005
+          bias_abs      TrueVar condW.indepQ.Var.Est condW.Var.Est   depVar.Est bootVar.Est  iidVar.Est
+tmle   0.001948297 0.0002756294          0.000141408   0.000238604 0.0003532915          NA 0.000157299
+h.iptw 0.049772555 0.0005118100                   NA            NA 0.0055716808          NA 0.001114938
+gcomp  0.003716258 0.0001813322                   NA            NA           NA          NA          NA
+       condW.indepQ.CIcov condW.CIcov depCIcov bootCIcov iidCIcov condW.indepQ.CIlen condW.CIlen   depCIlen bootCIlen
+tmle                0.798       0.901    0.973        NA    0.826         0.04538877  0.05902993 0.07280968        NA
+h.iptw                 NA          NA    1.000        NA    0.714                 NA          NA 0.29088878        NA
+gcomp                  NA          NA       NA        NA       NA                 NA          NA         NA        NA
+         iidCIlen        MAD       est
+tmle   0.04810915 0.01333567 0.4760316
+h.iptw 0.12977862 0.04989091 0.4243107
+gcomp          NA 0.01114961 0.4777996
+

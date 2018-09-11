@@ -1,0 +1,196 @@
+
+#results for scenario:  N500.Kmax5 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs      empVar       est        MAD cover     CIlen     CIlow    CIhigh       ICVar
+tmle   0.0007843198 0.002200516 0.6314853 0.03738668 0.883 0.1622114 0.5503796 0.7125910 0.001947946
+h.iptw 0.0431344686 0.003642874 0.5875665 0.06025300 0.936 0.3477212 0.4137059 0.7614271 0.008588064
+gcomp  0.0002392598 0.001304641 0.6304617 0.02903266    NA        NA        NA        NA          NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs      empVar       est        MAD cover     CIlen     CIlow    CIhigh       ICVar
+tmle   0.0000873203 0.003071074 0.6307883 0.04434730 0.882 0.1858604 0.5378581 0.7237185 0.002508307
+h.iptw 0.0431344686 0.003642874 0.5875665 0.06025300 0.936 0.3477212 0.4137059 0.7614271 0.008588064
+gcomp  0.0001469565 0.001671031 0.6305540 0.03235108    NA        NA        NA        NA          NA
+
+
+#results for scenario:  N500.Kmax10 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs      empVar       est        MAD cover     CIlen     CIlow    CIhigh       ICVar
+tmle   0.0007816728 0.003997575 0.6295003 0.04999715 0.757 0.1599709 0.5495149 0.7094858 0.002072431
+h.iptw 0.1242238892 0.006006466 0.5060581 0.13057193 0.757 0.4346790 0.2887186 0.7233976 0.013705894
+gcomp  0.0013381004 0.002034459 0.6289439 0.03593696    NA        NA        NA        NA          NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs      empVar       est        MAD cover     CIlen     CIlow    CIhigh       ICVar
+tmle   1.787757e-03 0.006246740 0.6284942 0.06326462 0.718 0.1867013 0.5351436 0.7218449 0.002915863
+h.iptw 1.242239e-01 0.006006466 0.5060581 0.13057193 0.757 0.4346790 0.2887186 0.7233976 0.013705894
+gcomp  8.415606e-05 0.002708186 0.6301978 0.04153243    NA        NA        NA        NA          NA
+
+
+#results for scenario:  N1000.Kmax5 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+          bias_abs       empVar       est        MAD cover     CIlen     CIlow    CIhigh        ICVar
+tmle   0.001963536 0.0010498364 0.6287235 0.02610474 0.926 0.1183564 0.5695453 0.6879016 0.0009697865
+h.iptw 0.024684697 0.0016438834 0.6060023 0.03813769 0.974 0.2576147 0.4771949 0.7348097 0.0045148682
+gcomp  0.002440934 0.0007244292 0.6282461 0.02171069    NA        NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+          bias_abs      empVar       est        MAD cover     CIlen     CIlow    CIhigh       ICVar
+tmle   0.002364046 0.001411082 0.6283230 0.03018390 0.917 0.1364289 0.5601085 0.6965374 0.001287474
+h.iptw 0.024684697 0.001643883 0.6060023 0.03813769 0.974 0.2576147 0.4771949 0.7348097 0.004514868
+gcomp  0.002452635 0.000893607 0.6282344 0.02409112    NA        NA        NA        NA          NA
+
+
+#results for scenario:  N1000.Kmax10 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est        MAD cover     CIlen     CIlow    CIhigh       ICVar
+tmle   0.0008474027 0.0020534292 0.6295186 0.03610361 0.851 0.1374398 0.5607987 0.6982385 0.001454959
+h.iptw 0.0779364470 0.0030481511 0.5524296 0.08318186 0.909 0.3727737 0.3660427 0.7388164 0.009593069
+gcomp  0.0001040526 0.0009404569 0.6304701 0.02488631    NA        NA        NA        NA          NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs      empVar       est        MAD cover     CIlen     CIlow    CIhigh       ICVar
+tmle   0.0006856281 0.002936380 0.6296804 0.04265213 0.827 0.1608087 0.5492760 0.7100847 0.001958113
+h.iptw 0.0779364470 0.003048151 0.5524296 0.08318186 0.909 0.3727737 0.3660427 0.7388164 0.009593069
+gcomp  0.0001856924 0.001222684 0.6305517 0.02821436    NA        NA        NA        NA          NA
+
+
+#results for scenario:  N5000.Kmax5 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0005778446 0.0001944875 0.6309078 0.011190491 0.945 0.05413199 0.6038419 0.6579738 0.0001933898
+h.iptw 0.0038123553 0.0002851134 0.6265176 0.013804202 0.996 0.12045891 0.5662882 0.6867471 0.0009515483
+gcomp  0.0004437242 0.0001493841 0.6307737 0.009780687    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est        MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0004075292 0.0002528750 0.6307375 0.01269787 0.945 0.06223077 0.5996221 0.6618529 0.0002553746
+h.iptw 0.0038123553 0.0002851134 0.6265176 0.01380420 0.996 0.12045891 0.5662882 0.6867471 0.0009515483
+gcomp  0.0007356994 0.0001838147 0.6310657 0.01088747    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N5000.Kmax10 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+          bias_abs       empVar       est        MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.001126139 0.0004020237 0.6298689 0.01628659 0.940 0.07324908 0.5932443 0.6664934 0.0003644895
+h.iptw 0.026252711 0.0006671837 0.6047423 0.03082112 0.994 0.20562455 0.5019300 0.7075546 0.0027907092
+gcomp  0.001001421 0.0001754456 0.6299936 0.01070824    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est        MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0012511419 0.0005828237 0.6297439 0.01949479 0.919 0.08657337 0.5864572 0.6730305 0.0005053221
+h.iptw 0.0262527113 0.0006671837 0.6047423 0.03082112 0.994 0.20562455 0.5019300 0.7075546 0.0027907092
+gcomp  0.0008528486 0.0002342580 0.6301422 0.01232167    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N10000.Kmax5 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0003025991 9.863919e-05 0.6305714 0.007894218 0.939 0.03831966 0.6114116 0.6497312 9.615482e-05
+h.iptw 0.0020516931 1.481963e-04 0.6288223 0.009832133 0.997 0.08555357 0.5860455 0.6715991 4.778279e-04
+gcomp  0.0002692805 6.984237e-05 0.6306047 0.006638603    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   8.165563e-05 1.345505e-04 0.6307923 0.009328867 0.945 0.04383863 0.6088730 0.6527117 0.0001257097
+h.iptw 2.051693e-03 1.481963e-04 0.6288223 0.009832133 0.997 0.08555357 0.5860455 0.6715991 0.0004778279
+gcomp  1.550147e-05 9.194392e-05 0.6308585 0.007790940    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N10000.Kmax10 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est        MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   3.020681e-04 0.0002142678 0.6308261 0.01158719 0.925 0.05425163 0.6037003 0.6579519 0.0001967774
+h.iptw 1.464887e-02 0.0003425740 0.6158751 0.01908553 0.998 0.15176635 0.5399920 0.6917583 0.0015095637
+gcomp  1.358669e-05 0.0001040670 0.6305376 0.00808069    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0001109122 0.0002896812 0.6304131 0.013439874 0.927 0.06461287 0.5981067 0.6627195 0.0002765518
+h.iptw 0.0146488715 0.0003425740 0.6158751 0.019085527 0.998 0.15176635 0.5399920 0.6917583 0.0015095637
+gcomp  0.0002511050 0.0001364130 0.6307751 0.009222998    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N20000.Kmax5 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   5.002822e-04 4.310805e-05 0.6306173 0.005200774 0.962 0.02704484 0.6170949 0.6441397 4.774995e-05
+h.iptw 1.618762e-05 6.106045e-05 0.6301332 0.006215116 1.000 0.06073177 0.5997673 0.6604991 2.403647e-04
+gcomp  2.287860e-04 3.172667e-05 0.6303458 0.004493244    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   5.327163e-04 5.486562e-05 0.6306497 0.005911993 0.961 0.03099118 0.6151541 0.6461453 6.265056e-05
+h.iptw 1.618762e-05 6.106045e-05 0.6301332 0.006215116 1.000 0.06073177 0.5997673 0.6604991 2.403647e-04
+gcomp  5.569457e-04 3.943057e-05 0.6306739 0.005030244    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N20000.Kmax10 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0006439489 1.074697e-04 0.6303551 0.008208484 0.945 0.03954675 0.6105817 0.6501284 0.0001031042
+h.iptw 0.0087167542 1.592015e-04 0.6222822 0.012340767 0.997 0.11025186 0.5671563 0.6774082 0.0007937187
+gcomp  0.0004265943 4.592205e-05 0.6305724 0.005421731    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0005876103 1.465918e-04 0.6304114 0.009477890 0.942 0.04692071 0.6069510 0.6538717 0.0001444958
+h.iptw 0.0087167542 1.592015e-04 0.6222822 0.012340767 0.997 0.11025186 0.5671563 0.6774082 0.0007937187
+gcomp  0.0000330841 6.035298e-05 0.6310321 0.006115139    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N30000.Kmax5 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0009529994 3.147882e-05 0.6307090 0.004600350 0.954 0.02202563 0.6196962 0.6417218 3.162775e-05
+h.iptw 0.0010611240 4.574844e-05 0.6306009 0.005513769 0.999 0.04959264 0.6058046 0.6553972 1.602393e-04
+gcomp  0.0011773306 2.409014e-05 0.6304847 0.004077559    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0009537046 4.132456e-05 0.6307083 0.005207127 0.950 0.02525860 0.6180790 0.6433376 4.158241e-05
+h.iptw 0.0010611240 4.574844e-05 0.6306009 0.005513769 0.999 0.04959264 0.6058046 0.6553972 1.602393e-04
+gcomp  0.0009796022 2.967292e-05 0.6306824 0.004453403    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N30000.Kmax10 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0009946631 6.720049e-05 0.6303533 0.006531394 0.952 0.03231581 0.6141954 0.6465112 6.854925e-05
+h.iptw 0.0071934277 1.176867e-04 0.6241546 0.010572007 1.000 0.09069438 0.5788074 0.6695018 5.365871e-04
+gcomp  0.0013426018 3.145370e-05 0.6300054 0.004529539    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+          bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.001126638 9.797835e-05 0.6302214 0.007867980 0.951 0.03844625 0.6109982 0.6494445 9.676349e-05
+h.iptw 0.007193428 1.176867e-04 0.6241546 0.010572007 1.000 0.09069438 0.5788074 0.6695018 5.365871e-04
+gcomp  0.001051121 4.049825e-05 0.6302969 0.004986415    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N50000.Kmax5 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0008989158 1.861431e-05 0.6306671 0.003523155 0.951 0.01711956 0.6221073 0.6392269 1.909847e-05
+h.iptw 0.0004253952 2.767283e-05 0.6311406 0.004174341 0.998 0.03842491 0.6119282 0.6503531 9.614232e-05
+gcomp  0.0009984816 1.390030e-05 0.6305675 0.003090146    NA         NA        NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+           bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.0008617123 2.483152e-05 0.6307043 0.004051774 0.947 0.01958625 0.6209112 0.6404974 2.498738e-05
+h.iptw 0.0004253952 2.767283e-05 0.6311406 0.004174341 0.998 0.03842491 0.6119282 0.6503531 9.614232e-05
+gcomp  0.0006962391 1.781599e-05 0.6308698 0.003422375    NA         NA        NA        NA           NA
+
+
+#results for scenario:  N50000.Kmax10 
+$Qh.corr_bin.equal.mass_nobsBinf0.0025
+          bias_abs       empVar       est         MAD cover      CIlen    CIlow    CIhigh        ICVar
+tmle   0.001405238 4.101386e-05 0.6308638 0.005263108 0.944 0.02531743 0.618205 0.6435225 4.191496e-05
+h.iptw 0.005075093 7.027331e-05 0.6271939 0.007801217 0.998 0.07107590 0.591656 0.6627319 3.292347e-04
+gcomp  0.001724874 1.947961e-05 0.6305441 0.003748475    NA         NA       NA        NA           NA
+
+$Q.miss_bin.equal.mass_nobsBinf0.0025
+          bias_abs       empVar       est         MAD cover      CIlen     CIlow    CIhigh        ICVar
+tmle   0.001255867 5.929903e-05 0.6310131 0.006220219 0.942 0.03013917 0.6159435 0.6460827 5.930327e-05
+h.iptw 0.005075093 7.027331e-05 0.6271939 0.007801217 0.998 0.07107590 0.5916560 0.6627319 3.292347e-04
+gcomp  0.001326501 2.621805e-05 0.6309425 0.004183152    NA         NA        NA        NA           NA
+

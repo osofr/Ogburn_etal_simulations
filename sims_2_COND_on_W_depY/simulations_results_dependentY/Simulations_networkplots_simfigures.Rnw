@@ -1,0 +1,892 @@
+
+
+\documentclass[english]{article} % \documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc} % \usepackage[utf8]{inputenc}
+\usepackage{geometry}
+% \geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsthm, amsmath,amssymb} % ,amsfonts
+\usepackage{setspace}
+\usepackage{esint}
+\usepackage[authoryear]{natbib}
+\onehalfspacing
+
+\makeatletter
+\usepackage{authblk}
+\usepackage[multiple]{footmisc}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+
+% \usepackage{jheppub}
+%%\usepackage[round]{natbib}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{color}
+\usepackage{float}
+
+\definecolor{blue}{rgb}{.2,.2,.7}
+\definecolor{red}{rgb}{.7,.2,.2}
+\definecolor{green}{rgb}{0,.6,.3}
+\definecolor{gray}{rgb}{0.45,0.45,0.45}
+\newcommand{\btext}[1]{\textcolor{blue}{#1}}
+\newcommand{\rtext}[1]{\textcolor{red}{#1}}
+\newcommand{\gtext}[1]{\textcolor{green}{#1}}
+\newcommand{\wtext}[1]{\textcolor{white}{#1}}
+\newcommand{\old}[1]{\textcolor{gray}{#1}}
+\definecolor{gray90}{RGB}{229,229,229}
+\definecolor{gray77}{RGB}{196,196,196}
+\definecolor{gray60}{RGB}{153,153,153}
+
+\renewcommand{\thefootnote}{\alph{footnote}}
+%%\newcommand{\acronym}[1]{\textsc{#1}}
+%%\newcommand{\class}[1]{\mbox{\textsf{#1}}}
+\newcommand{\code}[1]{\mbox{\texttt{#1}}}
+\newcommand{\pkg}[1]{{\normalfont\fontseries{b}\selectfont #1}}
+\newcommand{\proglang}[1]{\textsf{#1}}
+
+\newcommand\XOR{\mathbin{\char`\^}}
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+\theoremstyle{plain}
+\newtheorem*{thm*}{\protect\theoremname}
+\theoremstyle{plain}
+\newtheorem*{lem*}{\protect\lemmaname}
+
+\makeatother
+\usepackage{babel}
+\providecommand{\lemmaname}{Lemma}
+\providecommand{\theoremname}{Theorem}
+
+
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Introduction}
+<<include=FALSE, results='hide'>>=
+  library("ggplot2")
+  library("gridExtra")
+  library("tikzDevice")
+
+  require("knitr")
+  require("simcausal")
+  options(simcausal.verbose = FALSE)
+
+  cache_opt <- TRUE
+  opts_chunk$set(fig.path='TablesFigs/knitR-',fig.align='center',fig.show='hold',size='footnotesize')
+  knit_hooks$set(pdfcrop = hook_pdfcrop)
+  options(width=100)  # make the printing fit on the page
+  set.seed(1121)   # make the results repeatable
+@
+
+\begin{document}
+
+% ------------------------------------------------------------
+\section{Using R for Simulating Network-Dependent Observational Data}
+% ------------------------------------------------------------
+
+% % ------------------------------------------------------------
+% \subsection{Defining the Data-Generating Distribution}
+% % ------------------------------------------------------------
+
+We start by defining the distribution of the observed network graph. In this example we choose the preferential attachment network model with power law node degree distribution, with the sampling function provided below.
+
+<<eval=TRUE, message = FALSE>>=
+require("igraph")
+require("simcausal")
+require("ggraph")
+generate.igraph.prefattach <- function(n, power, zero.appeal, m, ...) {
+  g <- sample_pa(n, power = power, zero.appeal = zero.appeal, m = m)
+  g <- as.directed(as.undirected(g, mode = "collapse"), mode = "mutual")
+  sparse_AdjMat <- simcausal::igraph.to.sparseAdjMat(g)
+  NetInd_out <- simcausal::sparseAdjMat.to.NetInd(sparse_AdjMat)
+  return(NetInd_out$NetInd_k)
+}
+@
+
+The above network distribution is then added to a DAG object, which will define the observed data-generating distribution.
+
+<<eval=TRUE>>=
+D <- DAG.empty()
+Net.prefattach <- network("Net", netfun = "generate.igraph.prefattach", power = 0.5, zero.appeal = 5, m = 5)
+@
+
+Next, we define the distributions of the baseline covariates, as shown below. Note that we define the baseline indicator \texttt{HUB}, which indicates if a person has more or equal to 25 friends. We also define the baseline covariate \texttt{PA}, which indicates if a person is physically active at baseline and we define the network baseline summary \texttt{nF.PA}, which calculates the total number of friends of a person who are physically active.
+
+<<eval=TRUE>>=
+D <- D + Net.prefattach +
+      node("latWcat", distr = "rcat.b0", probs = c(0.0494, 0.1823, 0.2806, 0.2680,0.1651, 0.0546)) +
+      node("latWnorm", distr = "rnorm", mean = 0, sd = 1) +
+      node("HUB", distr = "rconst", const = ifelse(nF >= 25, 1, 0)) + # is this person a hub?
+      node("W1", distr = "rcat.b1", probs = c(0.0494, 0.1823, 0.2806, 0.2680,0.1651, 0.0546)) +
+      node("W2", distr = "rbern", prob = plogis(-0.2)) +
+      node("WNoise", distr = "rbern", prob = plogis(-0.4)) +
+      node("PA", distr = "rbern", prob = W2*0.05 + (1-W2)*0.15) + # Physically active at baseline (depends on W2)
+      node("nF.PA", distr = "rconst", const = sum(PA[[1:Kmax]]), replaceNAw0 = TRUE) # number of phys. active friends
+@
+
+As a next step we randomly assign the binary exposure, \texttt{A}, to 25\% of the population. This exposure corresponds with an informational campaign about the benefits of physical exercise and is intended to promote and sustain attendance of the local gym by community members.
+
+<<eval=TRUE>>=
+D <- D + node("A", distr = "rbern", prob = 0.25)
+@
+
+Next, we define some network summary measure, \texttt{sum.net.A3}, as shown below, which depends on the exposures of individuals' friends, as well as their friends' baseline covariate values.
+
+
+<<eval=TRUE>>=
+D <- D + node("sum.net.A", distr = "rconst",
+  const = (sum(A[[1:Kmax]])*(HUB==0) + sum((W1[[1:Kmax]] > 4)*A[[1:Kmax]])*(HUB==1)),
+  replaceNAw0 = TRUE)
+@
+
+We define the binary outcome \texttt{Y} below, which is defined as an indicator of sustaining a membership in a local gym for the duration of 6 months following the intervention \texttt{A}. Note that we assumed that each \texttt{Y} depends on the individual exposure and baseline covariates. It also depends on the network summary \texttt{sum.net.A3} defined above, as well as \texttt{nF.PA}, which represents the total number of friends of the individual who were physically active \texttt{PA=1} at baseline.
+
+<<eval=TRUE>>=
+D <- D +
+  node("probY", distr = "rconst",
+      const = plogis(ifelse(PA == 1,
+                  +5 - 15*(nF.PA < 1), # the probability of maintaining gym membership drops if no friends are PA
+                  -8.0 + 0.25*A) +
+                  +0.5*sum.net.A + 0.25*nF.PA*sum.net.A + 0.5*nF.PA +
+                  +0.5*(W1-1) - 0.58*W2 +
+                  -0.5*(3.477-1) + 0.58*0.4496 +
+                  +0.5*latWnorm + 0.5*sum(latWnorm[[1:Kmax]])),
+          replaceNAw0 = TRUE) +
+  node("Y", distr = "rbern", prob = probY)
+@
+
+Finally, we define the data-generating distribution based on the preferential attachment network model, as shown below.
+
+<<eval=TRUE, message=FALSE>>=
+D.prefattach <- set.DAG(D, latent.v = c("latWcat", "latWnorm", "probY"), n.test = 200)
+@
+
+
+We now call function \code{sim} to simulate a single network of 5,000 individuals using the above defined data-generating distribution, as shown below. We also look at the distribution of node connectivity in Figure \textbf{X.X} and we plot this network for a small sample of 50 observations in Figure \textbf{X.X}
+
+<<eval=TRUE>>=
+datO_5K <- sim(D.prefattach, n = 5000)
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, fig.pos='ht', fig.width=5, fig.height=3.5, fig.cap = "Degree distribution for a preferential attachment network with 5,000 observations.">>=
+Net_mat_5K <- attributes(datO_5K)$netind_cl$NetInd
+nF_5K <- attributes(datO_5K)$netind_cl$nF
+plot(table(nF_5K)/length(nF_5K), xlab = "Node degree", ylab = "Proportion")
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, fig.pos='ht', fig.width=5.5, fig.height=3, fig.cap = "Degree distribution for a preferential attachment network with 5,000 observations.">>=
+require("ggplot2")
+require("scales")
+Net_mat_5K <- attributes(datO_5K)$netind_cl$NetInd
+nF_5K <- attributes(datO_5K)$netind_cl$nF
+ggplot(data.frame(nFriends = nF_5K), aes(x = factor(nFriends))) +
+  geom_bar(aes(y = (..count..)/sum(..count..))) +
+  ## scale_y_continuous(labels = percent_format()) #version 3.0.9
+  scale_y_continuous(name = "Percent of total sample", labels = percent) + #version 3.1.0
+  xlab("Number of friends") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=45, size = 6.8), axis.title =  element_text(size = 8))
+# ggplot(data.frame(nFriends = nF_5K), aes(x = nFriends)) +
+#   stat_bin(binwidth = 1)
+  # geom_bar(aes(x = nFriends), stat = "identity")
+  # geom_histogram(aes(x = nFriends))
+@
+
+
+<<eval=TRUE, echo=FALSE, message=FALSE, fig.pos="ht", fig.width=4.5, fig.height=3.5, fig.cap = "Example of a preferential attachment network for 50 observations.\\label{fig:netExamplePA}">>=
+Odat_plot <- sim(D.prefattach, n = 50)
+g <- sparseAdjMat.to.igraph(NetInd.to.sparseAdjMat(NetInd_k=attributes(Odat_plot)$netind_cl$NetInd, nF=attributes(Odat_plot)$netind_cl$nF))
+par(mar=c(.1,.1,.1,.1))
+plot.igraph(g,
+    layout=layout.fruchterman.reingold,
+    vertex.size=2, vertex.label.cex=.3, edge.arrow.size=.1)
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, fig.pos="ht", fig.width=7, fig.height=5, fig.cap = "Alternative representation of the same preferential attachment network for 100 observations.\\label{fig:netExamplePA2}">>=
+require("ggraph")
+Odat_plot <- sim(D.prefattach, n = 100, rndseed = 12345)
+g <- sparseAdjMat.to.igraph(NetInd.to.sparseAdjMat(NetInd_k=attributes(Odat_plot)$netind_cl$NetInd, nF=attributes(Odat_plot)$netind_cl$nF))
+V(g)$degree <- degree(g, mode = 'in')
+# ggraph(g, layout = 'igraph', algorithm = "kk")
+# ggraph(g, layout = 'igraph', algorithm = "with_kk")
+# ggraph(g, layout = 'igraph', algorithm = "fr")
+# ggraph(g, layout = 'igraph', algorithm = "with_fr")
+ggraph(g, 'igraph', algorithm = 'kk') +
+  geom_edge_fan(aes(alpha = ..index..)) +
+  geom_node_point(aes(size = degree), colour = "firebrick") +
+  scale_edge_alpha('Friends with', guide = 'edge_direction') +
+  # scale_colour_manual('Improved', values = c('firebrick', 'forestgreen')) +
+  scale_size('# Friends') +
+  # facet_wrap(~year) +
+  ggforce::theme_no_axes()
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, fig.pos="ht", fig.width=7, fig.height=5, fig.cap = "Alternative representation of the same preferential attachment network for 100 observations.\\label{fig:netExamplePA2.bw}">>=
+require("ggraph")
+Odat_plot <- sim(D.prefattach, n = 100, rndseed = 12345)
+g <- sparseAdjMat.to.igraph(NetInd.to.sparseAdjMat(NetInd_k=attributes(Odat_plot)$netind_cl$NetInd, nF=attributes(Odat_plot)$netind_cl$nF))
+V(g)$degree <- degree(g, mode = 'in')
+# ggraph(g, layout = 'igraph', algorithm = "kk")
+# ggraph(g, layout = 'igraph', algorithm = "with_kk")
+# ggraph(g, layout = 'igraph', algorithm = "fr")
+# ggraph(g, layout = 'igraph', algorithm = "with_fr")
+ggraph(g, 'igraph', algorithm = 'kk') +
+  geom_edge_fan(aes(alpha = ..index..)) +
+  geom_node_point(aes(size = degree), colour = "black") +
+  scale_edge_alpha('Friends with', guide = 'edge_direction') +
+  # scale_colour_manual('Improved', values = c('firebrick', 'forestgreen')) +
+  scale_size('# Friends') +
+  # facet_wrap(~year) +
+  ggforce::theme_no_axes()
+@
+
+% ------------------------------------------------------------
+\subsection{Evaluating Target Causal Quantities from Simulated Counterfactual Data}
+% ------------------------------------------------------------
+
+Next we define several stochastic and dynamic interventions on the exposure \texttt{A}, as well as the total number of physically active friends \texttt{nF.PA}. We also calculate the corresponding causal effects of these interventions, using the preferential attachment network model. Note that one can easily evaluate the true values of the above causal parameters by simulating intervention-specific counterfactual data and then evaluating the estimated mean of the counterfactual outcomes, as shown in all of the following examples.
+
+Mean causal outcome under 35\% random coverage:
+
+<<eval=TRUE, message=FALSE>>=
+D.prefattach <- D.prefattach +
+  action("gstar", nodes = node("A", distr = "rbern", prob = aset), aset = 0.35)
+datFull <- sim(D.prefattach, actions="gstar", n = 50000, rndseed = 54321)
+print(psi0_a0.4 <- mean(datFull[["gstar"]]$Y))
+@
+
+Dynamic intervention that covers only around 10\% of the population by intervening (stochastically) only on the most connected individuals:
+
+<<eval=TRUE, message=FALSE>>=
+D.prefattach <- D.prefattach +
+action("gHubs",
+  nodes = c(node("A", distr = "rbern", prob = ifelse(nF >= 20, 0.9, ifelse(nF >= 15, 0.40, 0)))))
+datFull <- sim(D.prefattach, actions="gHubs", n = 50000, rndseed = 54321)
+print(psi0_g.dynamic <- mean(datFull[["gHubs"]]$Y))
+@
+
+Network intervention that increases the number of physically active friends by 1:
+
+<<eval=TRUE, message=FALSE>>=
+D.prefattach <- D.prefattach +
+  action("plus.nF.PA",
+    nodes = node("nF.PA", distr = "rconst",
+      const = ifelse(nF <= 15, sum(PA[[1:Kmax]]) + 1,
+                     sum(PA[[1:Kmax]])),
+      replaceNAw0 = TRUE))
+datFull <- sim(D.prefattach, actions="plus.nF.PA", n = 50000, rndseed = 54321)
+print(psi0_plusnF.PA <- mean(datFull[["plus.nF.PA"]]$Y))
+@
+
+% ------------------------------------------------------------
+\section{Estimation of causal effects for network dependent data}
+% ------------------------------------------------------------
+
+Having defined the simulated network data, as well as the true value of the target causal quantity (the gold standard), we switch to the topic of using R for estimating such causal parameters.
+
+
+\paragraph{Network-based summary measures}
+Example below.
+
+<<eval=TRUE, message = FALSE>>=
+require("tmlenet")
+
+sW <- def_sW(W1, W2, W3) +
+  def_sW(W1.W2 = W1 * W2) +
+  def_sW(mW1.W2 = (1 - W1) * (1 - W2)) +
+  def_sW(W1.W3 = W1 * W3) +
+  def_sW(mW1.W3 = (1 - W1) * (1 - W3)) +
+  def_sW(W2.W3 = W2 * W3) +
+  def_sW(mW2.W3 = (1 - W2) * (1 - W3)) +
+  def_sW(net.mean.W1 = ifelse(nF > 0, rowSums(W1[[1:Kmax]])/nF, 0), replaceNAw0 = TRUE)
+
+sA <- def_sA(sA, net.mean.sA = sum(sA[[1:Kmax]])/nF, replaceNAw0 = TRUE)
+@
+
+Using \proglang{R} to define the summary measures with the \pkg{tmlenet} package.
+
+<<eval=TRUE>>=
+sW <-  def_sW(W1, W2,
+  HUB = ifelse(nF >= 25, 1, 0))
+sA <-  def_sA(A, nF.PA = sum(PA[[1:Kmax]]), replaceNAw0 = TRUE) +
+ def_sA(A.PAeq0 = A * (PA == 0)) +
+ def_sA(nFPAeq0.PAeq1 = (nF.PA < 1) * (PA == 1)) +
+ def_sA(sum.net.A = (sum(A[[1:Kmax]])*(HUB==0) + sum((W1[[1:Kmax]] > 4)*A[[1:Kmax]])*(HUB==1)),
+        sum.net.A.sum.netPA = sum.net.A*nF.PA,
+        replaceNAw0 = TRUE)
+@
+
+\paragraph{Regression models}
+
+Examples of model specifications for the outcome and the \textit{effective exposure} models.
+
+<<eval=TRUE>>=
+Qforms <- "Y ~ nF.PA + A.PAeq0 + nFPAeq0.PAeq1 + sum.net.A + sum.net.A.sum.netPA + PA + W1 + W2"
+hform <- "A + sum.net.A ~ HUB + PA + nF.PA + nFPAeq0.PAeq1"
+@
+
+\paragraph{Interventions}
+
+Examples of interventions on summary measures.
+
+\begin{enumerate}
+\item{All intervention nodes must be named and must match some previously defined summary measure/node name (been previously defined in  \texttt{def\_sA}).}
+\item{The interention nodes/summaries will replace the existing ones.}
+\item{The summaries that were part of  \texttt{def\_sA} and were not re-defined in  \texttt{def\_sA.gstar} will be  still re-evaluated on the data generated under  \texttt{def\_sA.gstar.}}
+\item{Each intervention nodes/summary can reference the value of its own previously defined node, evaluated under observed data. For example, if we had an observed binary exposure data column A (registered with \texttt{def\_sA(A)}), the intervention that reverses the value of A from 0 to 1 and from 1 to 0 could be simply defined as \texttt{def\_sA.gstar(A = 1 - A)}.}
+\item{All of the observed exposure summaries defined in obs.sW.sA are evaluated in EXACTLY the same order as they were defined. Hence all the intervention summaries preserve exactly the same order of evaluation as in \texttt{obs.sW.sA}.}
+\end{enumerate}
+
+<<eval=FALSE>>=
+# Example 1A: Increase the total number of phys-active friends by 1.
+sA_star1a <- def_new_sA(nF.PA = (nF <= 10)*(sum(PA[[1:Kmax]])+1) + (nF > 10)*sum(PA[[1:Kmax]]), replaceNAw0 = TRUE)
+# # Example 1B: Alternative way of defining exactly the same intervention (will over-ride the existing summary nF.PA defined under sA)
+sA_star1b <- def_new_sA(nF.PA = (nF <= 10)*(nF.PA+1) + (nF > 10)*nF.PA)
+# Example 2: Sample A as a stochastic intervention:
+sA_star2 <-  def_new_sA(A = rbinom(n = length(A), size = 1, prob = 0.10))
+# Example 3A: Sample A as a stochastic intervention and don't intervene on the summaries of the HUBS:
+sA_star3a <- def_new_sA(A = rbinom(n = length(A), size = 1, prob = 0.60)) +
+  def_new_sA(sum.net.A = ifelse(HUB==1, sum.net.A, sum(A[[1:Kmax]])), replaceNAw0 = TRUE)
+# Example 3B: Equivalent to 3A, but explicititely defining sum.net.A.sum.netPA as well:
+sA_star3b <- def_new_sA(A = rbinom(n = length(A), size = 1, prob = 0.10)) +
+  def_new_sA(sum.net.A = ifelse(HUB==1, sum.net.A, sum(A[[1:Kmax]])), replaceNAw0 = TRUE) +
+  def_new_sA(sum.net.A.sum.netPA = sum.net.A*nF.PA)
+@
+
+
+Examples of interventions on the exposure variable. Stochastic intervention on A. Note that the the rest of the effective exposure summary measures are automatically evaluated based on the counterfactual values of the exposure variable specified below.
+
+<<eval=TRUE>>=
+new.sA1.stoch.2 <-  def_new_sA(A = rbinom(n = length(A), size = 1, prob = 0.35))
+@
+
+
+Example of a dynamic intervention on A, conditional on the number of friends (\texttt{nF}). This intervention assigns the exposure to approximately top 10\% of the most connected individuals in the observed network.
+
+
+<<eval=TRUE>>=
+new.sA1.dyn.4 <- def_new_sA(A = rbinom(n = length(A), size = 1,
+  prob = ifelse(nF >= 20, 0.9, ifelse(nF >= 15, 0.40, 0))))
+@
+
+Example of running the
+
+<<eval=FALSE>>=
+res <- tmlenet(data = datO, sW = sW, sA = sA,
+  Ynode = "Y", Kmax = K,
+  NETIDmat = attributes(datO)$netind_cl$NetInd,
+  intervene1.sA = new.sA1.stoch.2,
+  Qform = Qform, hform.g0 = hform, hform.gstar = hform)
+@
+
+% ------------------------------------------------------------
+% \newpage{}
+% \section{Simulation results}
+% ------------------------------------------------------------
+
+<<eval=TRUE, echo=FALSE, message=FALSE, results='hide'>>=
+`%+%` <- function(a, b) paste0(a, b)
+# setwd("/Users/olegsofrygin/GoogleDrive/Network_TMLE/Betsy_sims")
+# outdir <- "./Rdata_gym_boot/"
+source("helper_plotting.R")
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, results='hide'>>=
+cbbPalette <- c(
+  "#b20019",
+  "#0072b2",
+  "#b29900",
+  "#F0E442",
+  "#009E73",
+  "#0072B2",
+  "#CC79A7"
+  )
+
+get_legend<-function(myggplot){
+  tmp <- ggplot_gtable(ggplot_build(myggplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
+# plot the mean CI length or coverage (later will be pasted together into two panels)
+plot.CIs.gg <- function(data.df, only_1net = TRUE, cov = FALSE, bw = FALSE){
+  require(ggplot2)
+  if (!cov) {
+    p <- ggplot(data.df, aes(x = scen.labs, y = tmle.est, ymin=CIlow, ymax=CIhi))
+    if(only_1net) {
+      p <- p + geom_point(aes(color = CI.type, shape = CI.type), position = position_dodge(0.35), size = 0.9)
+      # p <- p + geom_linerange(aes(color = CI.type, linetype = CI.type), alpha = 1, size = 0.6, position = position_dodge(0.35))
+      p <- p + geom_errorbar(aes(color = CI.type, linetype = CI.type), alpha = 1, width = 0.3, position = position_dodge(0.35))
+    } else {
+      p <- p + geom_point(aes(color = CI.type, shape = CI.type), position = position_dodge(0.35), size = 0.9)
+      # p <- p + geom_linerange(aes(color = CI.type, linetype = CI.type, type = network), size = 0.6, alpha = 1, position = position_dodge(0.35))
+      p <- p + geom_errorbar(aes(color = CI.type, linetype = CI.type, type = network), alpha = 1, width = 0.3, position = position_dodge(0.35))
+    }
+
+    p <- p + scale_colour_manual(values= cbbPalette)
+
+    p <- p + theme_bw() + coord_flip()
+    p <- p + geom_hline(aes(yintercept=0), lty=2)
+    p <- p + facet_grid(N ~ ., labeller = label_both) + xlab('Scenario')
+    # p <- p + facet_grid(. ~ N, labeller = label_both) + xlab('Scenario')
+    p <- p + ylab('Mean estimate \\& 95\\% CI length')
+    p <- p + theme(axis.title.y = element_blank(),
+                   axis.title.x = element_text(size = 8),
+                   plot.margin = unit(c(1, 0, 1, 1), "lines"),
+                   legend.position="top")
+
+    if (bw) {
+      p <- p + scale_colour_brewer()
+      p <- p + scale_color_grey()
+      p <- p + scale_fill_grey()
+    }
+
+  } else {
+    p <- ggplot(data.df, aes(x = scen.labs, y = CIcover))
+    if(only_1net) {
+      p <- p + geom_point(aes(color = CI.type, shape = CI.type), position = position_dodge(0.35), size = 0.8)
+    } else {
+      p <- p + geom_point(aes(color = CI.type, shape = CI.type, type = network), position = position_dodge(0.35), size = 0.8)
+    }
+
+    p <- p + scale_colour_manual(values= cbbPalette)
+
+    p <- p + theme_bw() + coord_flip()
+    p <- p + geom_hline(aes(yintercept=0.95), lty=2)
+    p <- p + facet_grid(N ~ ., labeller = label_both) + xlab('Scenario')
+    # p <- p + facet_grid(. ~ N, labeller = label_both) + xlab('Scenario')
+    p <- p + ylab('Coverage')
+    p <- p + theme(axis.title.y = element_blank(),
+                   axis.title.x = element_text(size = 8),
+                   plot.margin = unit(c(1, 1, 1, 0), "lines"),
+                   axis.text.y  = element_blank(),
+                   legend.position = "none"
+                   # axis.ticks.y = element_blank()
+                   )
+
+    if (bw) {
+      p <- p + scale_colour_brewer()
+      p <- p + scale_color_grey()
+      p <- p + scale_fill_grey()
+    }
+  }
+  return(p)
+}
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, results='hide'>>=
+# obtain the data in long format from the results for one type of the CI only
+get_1CItype <- function(CI.type, simRes_all = simRes_all, network = c("prefattach","smallworld"), Qscen_idx = 1) {
+  scen.names <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "scen.name")))
+  network.types <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "network")))
+  nsamp <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "nsamp")))
+  ATE <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "ATE")))
+
+  sel_idx <- network.types %in% network
+
+  simRes_all_sel <- simRes_all[sel_idx]
+  network.types_sel <- network.types[sel_idx]
+  ATE <- ATE[sel_idx]
+
+  sims_MeanRes_byscen <- lapply(simRes_all_sel, '[[', "sims_MeanRes_byscen")
+  sims_MeanRes_byscen_Q <- lapply(sims_MeanRes_byscen, '[[', Qscen_idx)
+
+  tmle.est <- unlist(lapply(sims_MeanRes_byscen_Q,
+                        function(scen_table) scen_table["tmle","est"]))
+
+  CI.get <- CI.type %+% "CI" %+% "len"
+  CIlow <- unlist(lapply(sims_MeanRes_byscen_Q,
+                        function(scen_table) scen_table["tmle","est"] - scen_table["tmle",CI.get]/2))
+  CIhi <- unlist(lapply(sims_MeanRes_byscen_Q,
+                        function(scen_table) scen_table["tmle","est"] + scen_table["tmle",CI.get]/2))
+
+  # print("CI.get: "); print(CI.get); print(CIlow)
+  # CI.get <- CI.type %+% "CI" %+% "cover"
+
+  CI.get <- CI.type %+% "CI" %+% "cov"
+  CIcover <- unlist(lapply(sims_MeanRes_byscen_Q,
+                        function(scen_table) scen_table["tmle", CI.get]))
+
+  data_sim_stats <- data.frame(row.names=NULL,
+                              scen.names=scen.names[sel_idx],
+                              network = network.types_sel,
+                              ATE = ATE,
+                              N = nsamp[sel_idx],
+                              tmle.est, CI.type, CIlow, CIhi, CIcover)
+
+  return(data_sim_stats)
+}
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, results='hide'>>=
+# ----------------------------------------------------------------------------------------------------
+# new network runs (iid W, bootstrap = 500, nsims = 1000):
+# pref. attachment & small-world networks
+# ----------------------------------------------------------------------------------------------------
+# print(getwd())
+# load(file="../" %+% outdir%+%"simRes_all.RData")
+# names(simRes_all)
+# load("/Users/olegsofrygin/GoogleDrive/Network_TMLE/Betsy_sims/Rdata_gym_boot/simRes_all.RData")
+load("./source_sim_data/simRes_all.RData")
+
+data_sim_stats_1net_PA <- rbind(get_1CItype("dep",  simRes_all, network = "prefattach", Qscen_idx = 1),
+                             get_1CItype("boot", simRes_all, network = "prefattach", Qscen_idx = 1),
+                             get_1CItype('iid',  simRes_all, network = "prefattach", Qscen_idx = 1))
+data_sim_stats_1net_SW <- rbind(get_1CItype("dep",  simRes_all, network = "smallworld", Qscen_idx = 1),
+                             get_1CItype("boot", simRes_all, network = "smallworld", Qscen_idx = 1),
+                             get_1CItype('iid',  simRes_all, network = "smallworld", Qscen_idx = 1))
+@
+
+
+<<eval=TRUE, echo=FALSE, message=FALSE, results='hide'>>=
+# ----------------------------------------------------------------------------------------------------
+# Define labels and prep data for plotting (pref attachment network):
+# ----------------------------------------------------------------------------------------------------
+(scen.names <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "scen.name"))))
+(network.types <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "network"))))
+(nsamp <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "nsamp"))))
+(ATE <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "ATE"))))
+(sims_MeanRes_tabs <- lapply(simRes_all, '[[', "sims_MeanRes_byscen"))
+CI_types_new <- c(
+  "dependent IC Var",
+  "bootstrap Var",
+  "iid Var")
+# CI_types_new <- c(
+#   CI_types[1] %+% " Var ($\\sigma_{IC,N}^{2}$)",
+#   CI_types[2] %+% " Var ($\\sigma_{boot,N}^{2}$)",
+#   CI_types[3] %+% " Var ($\\sigma_{IID,N}^{2}$)"
+# )
+scenario_labelsEYgstar <- c(
+  "$g^*_1$ (random 35\\%)", # $$1/n \sum{E_{g_1^*}Y_i}
+  "$g^*_2$ (dynamic intervention)",
+  "$g^*_3$ (network intervention)",
+  "$g^*_2$ + $g^*_3$")
+scenario_labelsATE <- c(
+  "Contrast: $g^*_1$ vs. random 10\\%",
+  "Contrast: $g^*_2$ vs. random 10\\%",
+  "Contrast: $g^*_3$ vs. observed $g$",
+  "Contrast: ($g^*_2$ + $g^*_3$) vs. random 10\\%")
+
+make_final_dataset <- function(data_sim_stats_1net) {
+  scen.names <- data_sim_stats_1net$scen.names
+  CI_types <- unique(data_sim_stats_1net$CI.type)
+  scenario_names <- unique(scen.names)
+  # "EY.f.g1.stoch0.4"  "ATE.f.g1.stoch0.4"
+  # "EY.f.g1.dynamic"   "ATE.f.g1.dynamic"
+  # "EY.f.g1.nFPA"      "ATE.f.g1.nFPA"
+  # "EY.f.g1.A_nFPA"    "ATE.f.g1.A_nFPA"
+  data_sim_stats_1net$CI.type <- factor(rep(CI_types_new, each = length(scenario_names)*length(unique(nsamp))), levels = CI_types_new)
+  (length(scenario_labelsEYgstar)+length(scenario_labelsATE))*length(unique(nsamp))*length(unique(data_sim_stats_1net$CI.type))
+  nrow(data_sim_stats_1net)
+  # order by all mean EY_gstar parameters first then all ATE parameters
+  data_sim_stats_1net <- data_sim_stats_1net[order(data_sim_stats_1net$ATE), ]
+  data_sim_stats_1net$scen.labs <- factor(
+                                          c(rep(rep(scenario_labelsEYgstar, each = length(unique(nsamp))), length(unique(data_sim_stats_1net$CI.type))),
+                                            rep(rep(scenario_labelsATE, each = length(unique(nsamp))), length(unique(data_sim_stats_1net$CI.type)))),
+                                          # levels = c(scenario_labels[4], scenario_labels[3], scenario_labels[2], scenario_labels[1]))
+                                          # levels = c(scenario_labels[6], scenario_labels[4], scenario_labels[2],
+                                          #           scenario_labels[5], scenario_labels[3], scenario_labels[1]))
+                                          levels = c(scenario_labelsATE[4], scenario_labelsEYgstar[4],
+                                                     scenario_labelsATE[3], scenario_labelsEYgstar[3],
+                                                     scenario_labelsATE[2], scenario_labelsEYgstar[2],
+                                                     scenario_labelsATE[1], scenario_labelsEYgstar[1]))
+  levels(data_sim_stats_1net$scen.labs)
+  return(data_sim_stats_1net)
+}
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, results='hide'>>=
+# ----------------------------------------------------------------------------------------------------------------
+# select only a subset of one scenario (all, EYg or ATE/contrast):
+# by_ATE_scen <- "all"
+# by_ATE_scen <- "ATE"
+# by_ATE_scen <- "EY.gstar"
+# ----------------------------------------------------------------------------------------------------------------
+plot_CIs_by_scen <- function(by_ATE_scen, data_sim_res_1net, bw = FALSE) {
+  if (by_ATE_scen %in% "all") {
+    data <- data_sim_res_1net
+  } else if (by_ATE_scen %in% "EY.gstar") {
+    data <- data_sim_res_1net[!data_sim_res_1net$ATE,]
+    data$scen.labs <- factor(data$scen.labs, levels = rev(scenario_labelsEYgstar))
+  } else if (by_ATE_scen %in% "ATE") {
+    data <- data_sim_res_1net[data_sim_res_1net$ATE,]
+    data$scen.labs <- factor(data$scen.labs, levels = rev(scenario_labelsATE))
+  }
+  plotCIlen <- plot.CIs.gg(data, cov = FALSE, bw = bw)
+  plotCIcov <- plot.CIs.gg(data, cov = TRUE, bw = bw)
+  legend.save <- get_legend(plotCIlen)
+  plotCIlen <- plotCIlen + theme(legend.position = "none")
+  plotCIs <- grid.arrange(legend.save, plotCIlen, plotCIcov,
+                nrow = 2, ncol = 2,
+                layout_matrix = rbind(c(1,1), c(2,3)),
+                widths = c(0.60,0.40),
+                heights = c(0.15, 2.9))
+  grid.arrange(legend.save, plotCIlen, plotCIcov,
+                nrow = 2, ncol = 2,
+                layout_matrix = rbind(c(1,1), c(2,3)),
+                widths = c(0.67,0.33),
+                heights = c(0.15, 2.9))
+}
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, results='hide'>>=
+# --------------------------------------------------------------------------------------------
+# Plot re-scaled histogram densities vs. their theoretical standard normal limit
+# --------------------------------------------------------------------------------------------
+make_ggplot_hist <- function(model_scen, simRes_byscen, scen.name, estimator = "tmle") {
+  require("ggplot2")
+  Normal_density_fin <- NULL
+  nsamp <- simRes_byscen[["Sim_params"]][["nsamp"]]
+  # print("nsamp"); print(nsamp)
+  K <- simRes_byscen[["Sim_params"]][["K"]]
+  psi0 <- simRes_byscen[["psi0"]]
+  # mean stats over sims:
+  sims_MeanRes_byscen <- simRes_byscen[["sims_MeanRes_byscen"]]
+  # raw results for all sims:
+  sims_RawRes_byscen <- simRes_byscen[["sims_RawRes_byscen"]]
+  # scen1_Raw_ests <- sims_RawRes_byscen[["Qh.corr"]][["est"]]
+  # scen2_Raw_ests <- sims_RawRes_byscen[["Q.miss"]][["est"]]
+  # scen3_Raw_ests <- sims_RawRes_byscen[["h.miss"]][["est"]]
+  # print(sims_MeanRes_byscen[[model_scen]])
+  # sigma2_0 <- sims_MeanRes_byscen[[model_scen]][,"empVar"]
+  sigma2_0 <- sims_MeanRes_byscen[[model_scen]][,"TrueVar"]
+  # sigma2_N <- sims_MeanRes_byscen[[model_scen]][,"depVar.Est"]
+  all_psi_n <- sims_RawRes_byscen[[model_scen]][["est"]]
+  est_names <- colnames(all_psi_n)
+  all_psi_n_scaled <- (all_psi_n - psi0)
+  # all_psi_n_scaled <- sqrt(nsamp/K) * (all_psi_n - psi0)
+  for (est_name in est_names) {
+    # print("rescaling est_name"); print(est_name)
+    # print("sigma2_0"); print(sigma2_0[est_name])
+    all_psi_n_scaled[, est_name] <- all_psi_n_scaled[, est_name] / sqrt(sigma2_0[est_name])
+    # The theoretical limiting distribution
+    vu <- seq(min(all_psi_n_scaled[, est_name])-0.1, max(all_psi_n_scaled[, est_name])+0.1, by = .001)
+    Normal_density  <- data.frame(x=vu, y=dnorm(x = vu, mean = 0, sd = 1))
+    Normal_density$estimator <- est_name
+    Normal_density$N <- nsamp
+    Normal_density$scen.name <- scen.name
+    Normal_density_fin <- rbind(Normal_density_fin, Normal_density)
+  }
+  all_psi_n_scaled <- data.frame(all_psi_n_scaled)
+  all_psi_n_scaled_melted <- reshape2::melt(all_psi_n_scaled)
+  all_psi_n_scaled_melted$N <- nsamp
+  all_psi_n_scaled_melted$scen.name <- scen.name
+  colnames(all_psi_n_scaled_melted) <- c("estimator", "estimand", "N", "scen.name")
+  # print(nrow(all_psi_n_scaled_melted))
+  all_psi_n_scaled_melted <- all_psi_n_scaled_melted[all_psi_n_scaled_melted[,"estimator"] %in% estimator,]
+  # print(head(all_psi_n_scaled_melted))
+  # print(nrow(all_psi_n_scaled_melted))
+  Normal_density_fin <- Normal_density_fin[Normal_density_fin$estimator %in% estimator,]
+  # print(head(Normal_density_fin))
+  # print(estimator)
+  # print(unique(all_psi_n_scaled_melted$estimator))
+  # print(unique(Normal_density_fin$estimator))
+  return(list(all_psi_n_scaled_melted = all_psi_n_scaled_melted, Normal_density = Normal_density_fin))
+}
+@
+
+<<eval=TRUE, echo=FALSE, message=FALSE, results='hide'>>=
+# ----------------------------------------------------------------------------------------------------
+# Use saved raw simulation results to generate new plots
+# ----------------------------------------------------------------------------------------------------
+use_sims_plot_byK <- function(network = "prefattach", estimator = "h.iptw", est.plot = "IPTW", scenATE = FALSE) {
+  # What network type?
+  # network <- "prefattach"
+  # network <- "smallworld"
+  # Which estimator to use for histgrams?
+  # estimator <- "h.iptw"; est.plot <- "IPTW"
+  # estimator <- "tmle"; est.plot <- "TMLE"
+  # ATE or EYg?
+  # scenATE <- FALSE
+  # scenATE <- TRUE
+  (sim_names <- names(simRes_all))
+  (K_vec <- unique(unlist(lapply(simRes_all, function(sim) sim[['Sim_params']][['K']]))))
+  (scen.names <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "scen.name"))))
+  (network.types <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "network"))))
+  (nsamp <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "nsamp"))))
+  N_select <- nsamp   # N_select <- c(1000, 1000, 10000)
+  (ATE <- as.vector(unlist(lapply(lapply(simRes_all, '[[', "Sim_params"), '[[', "ATE"))))
+  (networks <- unique(unlist(lapply(simRes_all, function(sim) sim[['Sim_params']][["network"]]))))
+  (model_names <- names(simRes_all[[1]][["sims_MeanRes_byscen"]]))
+  # (scenarios <- unique(unlist(lapply(simRes_all, function(sim) sim[['Sim_params']][["scen.name"]]))))
+  (scenarios <- unique(unlist(lapply(simRes_all, function(sim) sim[['Sim_params']][["scen.name"]]))[network.types %in% network]))
+
+  scenarios_select_EY <- c(scenarios[1],scenarios[3],scenarios[5], scenarios[7])
+  scenarios_select_ATE <- c(scenarios[2],scenarios[4],scenarios[6], scenarios[8])
+  scenario_labels <- c(
+    "g[1]^symbol('*')", # "g[1]'*'", #  (random 25\\%)
+    "Contrast: g[1]^symbol('*')", #  vs. 10\\%
+    "g[2]^symbol('*')", # (dynamic intervention)
+    "Contrast: g[2]^symbol('*')", #  vs. 10\\%
+    "g[3]^symbol('*')", #  (network intervention)
+    "Contrast: g[3]^symbol('*')", #  vs. 10\\%
+    "g[2]^symbol('*') + g[3]^symbol('*')",
+    "Contrast: (g[2]^symbol('*') + g[3]^symbol('*'))" #  vs. 10\\%
+    )
+  scenario_labels <- factor(scenario_labels, levels = scenario_labels)
+  # levels(scenario_labels)
+  if (!scenATE) {
+    scenarios_sel <- scenarios_select_EY
+    scen.type.name <- "EY"
+  } else {
+    scenarios_sel <- scenarios_select_ATE
+    scen.type.name <- "ATE"
+  }
+  # loop over all scenarios (put all N in one plot for the same scenario):
+  ggplothist_byscen <- NULL
+  all_psi_n_scaled_scens <- NULL
+  Norm_density_scens <- NULL
+  for (scenario in scenarios_sel) {
+    # print("network: " %+% network)
+    # print("scenario: " %+% scenario)
+    scen_select <- scen.names %in% scenario
+    net_select <- network.types %in% network
+    nsamp_select <- nsamp %in% N_select
+    idx_select <- which(scen_select & net_select & nsamp_select)
+    # print("plotting results for scenarios: " %+% names(simRes_all[idx_select]))
+    # ggplothist_byscen <- c(ggplothist_byscen,
+    ggplothist_byscen <- lapply(idx_select, function(idx)
+                                make_ggplot_hist(model_scen = model_names[1],
+                                                 simRes_byscen = simRes_all[[idx]],
+                                                 scen.name = scenario,
+                                                 estimator = estimator))
+
+    all_psi_n_scaled_melted <- lapply(ggplothist_byscen, '[[', "all_psi_n_scaled_melted")
+    all_psi_n_scaled_melted <- do.call("rbind", all_psi_n_scaled_melted)
+    # hist(ggplothist_byscen[[1]]$all_psi_n_scaled_melted$estimand)
+    # hist(all_psi_n_scaled_melted[,"estimand"])
+    # nrow(all_psi_n_scaled_melted)
+    # browser()
+    all_psi_n_scaled_melted$scen <- scenario_labels[which(scenarios %in% scenario)]
+    all_psi_n_scaled_melted$scenario <- scenario
+    Normal_density <- lapply(ggplothist_byscen, '[[', "Normal_density")
+    Normal_density <- do.call("rbind", Normal_density)
+    Normal_density$scen <- scenario_labels[which(scenarios %in% scenario)]
+    Normal_density$scenario <- scenario
+    all_psi_n_scaled_scens <- rbind(all_psi_n_scaled_scens, all_psi_n_scaled_melted)
+    Norm_density_scens <- rbind(Norm_density_scens, Normal_density)
+  }
+  # unique(all_psi_n_scaled_scens$scenario)
+  # nrow(all_psi_n_scaled_scens)
+  # unique(Norm_density_scens$scenario)
+  # is.factor(all_psi_n_scaled_scens$scen); levels(all_psi_n_scaled_scens$scen)
+  # is.factor(Norm_density_scens$scen); levels(Norm_density_scens$scen)
+  # unique(all_psi_n_scaled_scens$N)
+  # unique(Norm_density_scens$N)
+  # summary(all_psi_n_scaled_scens[all_psi_n_scaled_scens$N %in% 1000,])
+  # range(Norm_density_scens[Norm_density_scens$N %in% 1000,]$x)
+  # plot(arrangeGrob(grobs=ggplothist_byscen, nrow = 1, ncol = length(N_select)))
+  # hist_by_est <- ggplot(data.frame(all_psi_n_scaled_melted), aes(x=estimand)) +
+  hist_by_est <- ggplot(data.frame(all_psi_n_scaled_scens), aes(x=estimand)) +
+                  geom_histogram(aes(y=..density..), binwidth=0.10, colour="black", fill="white") +
+                  # geom_line(data=Normal_density, aes(x=x, y=y), colour = "red") +
+                  geom_line(data=Norm_density_scens, aes(x=x, y=y), colour = "red") +
+                  theme_bw() +
+                  # facet_grid(estimator ~ .) +
+                  # facet_grid(. ~ estimator) +
+                  # facet_grid(. ~ N, labeller = label_both) +
+                  # facet_grid(scen ~ N, labeller = label_both) +
+                  facet_grid(scen ~ N, labeller = label_parsed, scales = "free_x") +
+                  # ggtitle(est.plot %+% " histograms (black) vs. asymptotic limiting distributions (red)") +
+                  # ggtitle("rescaled $(\\psi_n-\\psi_0)$ vs. N(0,1), scenario: " %+% simRes_byscen[["simname"]] %+% ", " %+% model_scen) +
+                  theme(
+                        plot.title = element_text(lineheight=1),
+                        axis.title.y = element_blank(),
+                        axis.title = element_text(lineheight=.9, size = 7),
+                        panel.spacing = grid::unit(0.1, "lines"), # panel.margin = grid::unit(0.1, "lines"),
+                        plot.margin = grid::unit(c(0,0.4,+0.5,+0.4),"lines")
+                        )
+                  #        +
+                  # xlab('Transformed estimates (centered at the true parameter value and rescaled by the true S.D.)')
+  return(hist_by_est)
+}
+@
+
+% ------------------------------------------------------------------------------------------------------------
+\section{Main results}
+% ------------------------------------------------------------------------------------------------------------
+<<"CIres.EY.prefattach", eval=TRUE, fig.keep='last', fig.width=7, fig.height=5, dev='tikz', pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Mean 95\\% CI length (left panel) and coverage (right panel) for the preferential attachment network, by sample size, interevention and CI type. Results shown for average expected outcomes only.">>=
+# data_sim_stats_1net <- data_sim_stats_1net_PA; network <- "prefattach"
+plot_CIs_by_scen(by_ATE_scen="EY.gstar", data_sim_res_1net = make_final_dataset(data_sim_stats_1net_PA), bw = FALSE)
+@
+
+<<"CIres.EY.prefattach.bw", eval=TRUE, fig.keep='last', fig.width=7, fig.height=5, dev='tikz', pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Mean 95\\% CI length (left panel) and coverage (right panel) for the preferential attachment network, by sample size, interevention and CI type. Results shown for average expected outcomes only.">>=
+# data_sim_stats_1net <- data_sim_stats_1net_PA; network <- "prefattach"
+plot_CIs_by_scen(by_ATE_scen="EY.gstar", data_sim_res_1net = make_final_dataset(data_sim_stats_1net_PA), bw = TRUE)
+@
+
+<<"CIres.EY.smwld", eval=TRUE, fig.keep='last', fig.width=7, fig.height=5, dev='tikz', pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Mean 95\\% CI length (left panel) and coverage (right panel) for the small world network, by sample size, interevention and CI type. Results shown for average expected outcomes only.">>=
+# data_sim_stats_1net <- data_sim_stats_1net_SW; network <- "smallworld"
+plot_CIs_by_scen(by_ATE_scen="EY.gstar", data_sim_res_1net = make_final_dataset(data_sim_stats_1net_SW), bw = FALSE)
+@
+
+<<"CIres.EY.smwld.bw", eval=TRUE, fig.keep='last', fig.width=7, fig.height=5, dev='tikz', pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Mean 95\\% CI length (left panel) and coverage (right panel) for the small world network, by sample size, interevention and CI type. Results shown for average expected outcomes only.">>=
+# data_sim_stats_1net <- data_sim_stats_1net_SW; network <- "smallworld"
+plot_CIs_by_scen(by_ATE_scen="EY.gstar", data_sim_res_1net = make_final_dataset(data_sim_stats_1net_SW), bw = TRUE)
+@
+
+<<"hist.TMLE.EY.prefattach", eval=TRUE, fig.keep='last', fig.width=8, fig.height=8, dev='png', dpi=100, pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Distribution of the transformed TMLE (black) compared to the theoretical limiting distribution (red) by sample size (x-axis) and intervention type (y-axis). The estimates were centered at the truth and re-scaled by true SD. Results shown are for average expected outcomes in the preferential attachment network.">>=
+use_sims_plot_byK(network = "prefattach", estimator = "tmle", est.plot = "TMLE", scenATE = FALSE)
+@
+
+<<"hist.TMLE.EY.smwld", eval=TRUE, fig.keep='last', fig.width=8, fig.height=8, dev='png', dpi=100, pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Distribution of the transformed TMLE (black) compared to the theoretical limiting distribution (red) by sample size (x-axis) and intervention type (y-axis). The estimates were centered at the truth and re-scaled by true SD. Results shown are for average expected outcomes in the small world network.">>=
+use_sims_plot_byK(network = "smallworld", estimator = "tmle", est.plot = "TMLE", scenATE = FALSE)
+@
+
+% ------------------------------------------------------------------------------------------------------------
+\newpage
+\section{Supplementary results}
+% ------------------------------------------------------------------------------------------------------------
+<<"CIres.ALL.prefattach", eval=TRUE, fig.keep='last', fig.width=7, fig.height=8, dev='tikz', pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Mean 95\\% CI length (left panel) and coverage (right panel) for the preferential attachment network, by sample size, interevention and CI type. Results shown for all scenarios.">>=
+# data_sim_stats_1net <- data_sim_stats_1net_PA; network <- "prefattach"
+# plot_CIs_by_scen(by_ATE_scen="all", data_sim_res_1net = make_final_dataset(data_sim_stats_1net_PA))
+@
+
+<<"CIres.ALL.smwld", eval=TRUE, fig.keep='last', fig.width=7, fig.height=8, dev='tikz', pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Mean 95\\% CI length (left panel) and coverage (right panel) for the small world network, by sample size, interevention and CI type. Results shown for all scenarios.">>=
+# data_sim_stats_1net <- ;
+# network <- "smallworld"
+# plot_CIs_by_scen(by_ATE_scen="all", data_sim_res_1net = make_final_dataset(data_sim_stats_1net_SW))
+@
+
+<<"CIres.ATE.prefattach", eval=TRUE, fig.keep='last', fig.width=7, fig.height=5, dev='tikz', pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Mean 95\\% CI length (left panel) and coverage (right panel) for the preferential attachment network, by sample size, interevention and CI type. Results shown for contrasts only.">>=
+# data_sim_stats_1net <- data_sim_stats_1net_PA; network <- "prefattach"
+# plot_CIs_by_scen(by_ATE_scen="ATE", data_sim_res_1net = make_final_dataset(data_sim_stats_1net_PA))
+@
+
+<<"CIres.ATE.smwld", eval=TRUE, fig.keep='last', fig.width=7, fig.height=5, dev='tikz', pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Mean 95\\% CI length (left panel) and coverage (right panel) for the small world network, by sample size, interevention and CI type. Results shown for contrasts only.">>=
+# data_sim_stats_1net <- data_sim_stats_1net_SW; network <- "smallworld"
+# plot_CIs_by_scen(by_ATE_scen="ATE", data_sim_res_1net = make_final_dataset(data_sim_stats_1net_SW))
+@
+
+% ------------------------------------------------------------------------------------------------------------
+% TMLE RESULTS (ATE)
+% ------------------------------------------------------------------------------------------------------------
+<<"hist.TMLE.ATE.prefattach", eval=TRUE, fig.keep='last', fig.width=8, fig.height=8, dev='png', dpi=72, pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Distribution of the transformed TMLE (black) compared to the theoretical limiting distribution (red) by sample size (x-axis) and intervention type (y-axis). The estimates were centered at the truth and re-scaled by true SD. Results shown are for contrasts in preferential attachment network.">>=
+# use_sims_plot_byK(network = "prefattach", estimator = "tmle", est.plot = "TMLE", scenATE = TRUE)
+@
+<<"hist.TMLE.ATE.smwld", eval=TRUE, fig.keep='last', fig.width=8, fig.height=8, dev='png', dpi=72, pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Distribution of the transformed TMLE (black) compared to the theoretical limiting distribution (red) by sample size (x-axis) and intervention type (y-axis). The estimates were centered at the truth and re-scaled by true SD. Results shown are for contrasts in small world network.">>=
+# use_sims_plot_byK(network = "smallworld", estimator = "tmle", est.plot = "TMLE", scenATE = TRUE)
+@
+
+% ------------------------------------------------------------------------------------------------------------
+% IPTW RESULTS (EY and ATE)
+% ------------------------------------------------------------------------------------------------------------
+<<"hist.IPTW.EY.prefattach", eval=TRUE, fig.keep='last', fig.width=8, fig.height=8, dev='png', dpi=72, pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Distribution of the transformed IPTW (black) compared to the theoretical limiting distribution (red) by sample size (x-axis) and intervention type (y-axis). The estimates were centered at the truth and re-scaled by true SD. Results shown are for average expected outcomes in the preferential attachment network.">>=
+use_sims_plot_byK(network = "prefattach", estimator = "h.iptw", est.plot = "IPTW", scenATE = FALSE)
+@
+
+<<"hist.IPTW.ATE.prefattach", eval=TRUE, fig.keep='last', fig.width=8, fig.height=8, dev='png', dpi=72, pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Distribution of the transformed IPTW (black) compared to the theoretical limiting distribution (red) by sample size (x-axis) and intervention type (y-axis). The estimates were centered at the truth and re-scaled by true SD. Results shown are for contrasts in the preferential attachment network.">>=
+# use_sims_plot_byK(network = "prefattach", estimator = "h.iptw", est.plot = "IPTW", scenATE = TRUE)
+@
+
+<<"hist.IPTW.EY.smwld", eval=TRUE, fig.keep='last', fig.width=8, fig.height=8, dev='png', dpi=72, pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Distribution of the transformed IPTW (black) compared to the theoretical limiting distribution (red) by sample size (x-axis) and intervention type (y-axis). The estimates were centered at the truth and re-scaled by true SD. Results shown are for average expected outcomes in the small world network.">>=
+use_sims_plot_byK(network = "smallworld", estimator = "h.iptw", est.plot = "IPTW", scenATE = FALSE)
+@
+
+<<"hist.IPTW.ATE.smwld", eval=TRUE, fig.keep='last', fig.width=8, fig.height=8, dev='png', dpi=72, pdfcrop=TRUE, echo=FALSE, message=FALSE, fig.cap = "Distribution of the transformed IPTW (black) compared to the theoretical limiting distribution (red) by sample size (x-axis) and intervention type (y-axis). The estimates were centered at the truth and re-scaled by true SD. Results shown are for contrasts in the small world network.">>=
+# use_sims_plot_byK(network = "smallworld", estimator = "h.iptw", est.plot = "IPTW", scenATE = TRUE)
+@
+
+\end{document}
+
